@@ -5,7 +5,7 @@ Collection of scripts for use with Arista's CloudVision Portal [CVP]
 ## Script Details
 ### [cvp-user-cleanup](https://github.com/colinmacgiolla/cvp-scripts/blob/main/cvp-user-cleanup.py)
 #### Problem Statement
-When using non-Local accounts e.g. TACACS or Radius, there is an issue where the user can still be considerd to be *Online* from a CVP perspective, and so using (potentially) cached credentials.
+When using non-Local accounts e.g. TACACS or Radius, there is an issue where the user can still be considered to be *Online* from a CVP perspective, and so using (potentially) cached credentials.
 
 This becomes an issue if they update their password on TACACS/RADIUS server, but CVP continues to use the cached credentials as they haven't logged out. Potentially this can snowball if they try to touch a large number of devices, and hit failed auth limits on the AAA server.
 
