@@ -71,7 +71,7 @@ def main():
     parser.add_argument('--target', help="Delete a specific user ID")
     args = parser.parse_args() 
 
-
+    log.debug(args)
     if args.password is None:
         args.password = getpass()
 
@@ -107,16 +107,12 @@ def main():
                 log.error("Unable to delete user: %s" % e)
                 break
 
-            
+            # User account exists, so as long as its not local, we delete/kick
             if target['userType'] != 'Local':
                 log.debug('Deleting the following information:')
                 log.debug(target)
                 clnt.api.delete_user(target)
                 user_count += 1
-
-
-            pass
-
 
         else:
             for user in users['users']:
@@ -134,9 +130,7 @@ def main():
                     log.debug('Not deleting user %s' % user['userId'])
                     log.debug(user)
 
-        log.info("Deleted %d users from %d CVP Servers" % (cvp_count,user_count) )
-
-
+    log.info("Deleted %d users from %d CVP Servers" % (cvp_count,user_count) )
 
     sys.exit(0)
 
