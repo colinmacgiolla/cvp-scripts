@@ -123,16 +123,15 @@ def main():
             log.info('Targeting user: %s' % args.target)
             try:
                 target = clnt.api.get_user(args.target)
+
+                # User account exists, so as long as its not local, we delete/kick
+                if target['userType'] != 'Local':
+                    log.debug('Deleting the following information:')
+                    log.debug(target)
+                    clnt.api.delete_user(target)
+                    user_count += 1
             except Exception as e:
                 log.error("Unable to delete user: %s" % e)
-                break
-
-            # User account exists, so as long as its not local, we delete/kick
-            if target['userType'] != 'Local':
-                log.debug('Deleting the following information:')
-                log.debug(target)
-                clnt.api.delete_user(target)
-                user_count += 1
 
         else:
             users = clnt.get('/user/getUsers.do?startIndex=0&endIndex=0')
