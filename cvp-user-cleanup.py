@@ -97,7 +97,6 @@ def main():
 
         cvp_count += 1
         cvp_info = clnt.api.get_cvp_info()
-        users = clnt.get('/user/getUsers.do?startIndex=0&endIndex=0')
 
         if args.target:
             log.info('Targeting user: %s' % args.target)
@@ -115,6 +114,7 @@ def main():
                 user_count += 1
 
         else:
+            users = clnt.get('/user/getUsers.do?startIndex=0&endIndex=0')
             for user in users['users']:
                 # get all non-local users
                 if user['userType'] != 'Local' and user['userStatus'] == 'Enabled' and user['currentStatus'] == 'Online':
