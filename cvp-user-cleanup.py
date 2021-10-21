@@ -71,6 +71,10 @@ def main():
     parser.add_argument('--target', help="Delete a specific user ID")
     args = parser.parse_args() 
 
+
+    if args.password is None:
+        args.password = getpass()
+
     # convert hours into seconds
     age_timer = int(args.timeout) * 60 * 60
 
