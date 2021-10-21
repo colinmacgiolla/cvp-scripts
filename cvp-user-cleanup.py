@@ -18,7 +18,6 @@
 
 
 import logging
-from re import T
 import sys, ssl
 import time
 import requests
