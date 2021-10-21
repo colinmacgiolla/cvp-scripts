@@ -20,6 +20,7 @@
 import logging
 import sys, ssl
 import time
+import argparse
 from cvprac.cvp_client import CvpClient
 from getpass import getpass
 
@@ -28,6 +29,19 @@ if ((sys.version_info.major == 3) or
     ssl._create_default_https_context = ssl._create_unverified_context
 
 def main():
+
+    # Create connection to CloudVision
+    clnt = CvpClient()
+
+
+    parser = argparse.ArgumentParser(description='Script to kick any ONLINE users using external AAA systems (TACACS/RADIUS) from the system')
+    parser.add_argument('-u', '--username', default='username',required=True)
+    parser.add_argument('-p', '--password', default=None)
+    parser.add_argument('-c', '--cvpserver', action='append', required=True)
+    args = parser.parse_args() 
+
+    
+
 
 
     sys.exit(0)
