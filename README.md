@@ -17,7 +17,9 @@ This script (by default) boots any non-Local users that are;
 CLI arguments are as follows;
 * -u / --username - your CVP username (assumes your account has permissions to manipulate users)
 * -p / --password - your CVP password. This is optional, and the password will be requested if not provided
-* -c / --cvpserver - the cvp server hostname or IP
+* Selecting the CVP server offers 2 options
+  * -c / --cvpserver - the cvp server hostname or IP
+  * -f / --file - File containing the server hostnames or IP addresses (1 per line)
 * -t / --timeout - Kick off any users that have been away for more then this interval (hours)
 * -d / --dryrun - Log the actions that would be taken, but don't actually kick any users
 * --target - only target a specific user, and kick them, regardless of when they were last seen

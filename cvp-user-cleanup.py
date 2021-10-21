@@ -18,6 +18,7 @@
 
 
 import logging
+from re import T
 import sys, ssl
 import time
 import requests
@@ -65,9 +66,13 @@ def main():
     parser = argparse.ArgumentParser(description='Script to kick any ONLINE non-local users using external AAA systems (TACACS/RADIUS) from the system')
     parser.add_argument('-u', '--username', default='username',required=True)
     parser.add_argument('-p', '--password', default=None)
-    parser.add_argument('-c', '--cvpserver', action='append', required=True)
+
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('-c', '--cvpserver', action='append', help="CVP Server hostname or IP address")
+    group.add_argument('-f','--file', action='append', help="File containing list of CVP hostnames or IP addresses, one per line")
+
     parser.add_argument('-t','--timeout', default='24', help="The number of hours since last accessed, that a user should be deleted")
-    parser.add_argument('-d','--dryrun', default=False, help="Dry-run mode - don't actually kick any users")
+    parser.add_argument('-d','--dryrun', action="store_true", help="Dry-run mode - don't actually kick any users")
     parser.add_argument('--target', help="Delete a specific user ID")
     args = parser.parse_args() 
 
@@ -83,11 +88,28 @@ def main():
     if args.target:
         log.info("Executing in targeted mode")
 
+    server_list = []
+    if args.cvpserver:
+        server_list = args.cvpserver
+    else:
+        for file in args.file:
+            try:
+                log.info('Attepting to load file %s' % file)
+                myFile = open(file,'r')
+                temp = myFile.read()
+                server_list.extend(temp.split('\n'))
+                myFile.close()
+            except Exception as e:
+                log.warning(e)
+    
+    log.info('Successfully parsed %d CVP servers for action' % len(server_list))
+
+
     log.info("Starting to connect to CVP server(s)")
     cvp_count = 0
     user_count = 0
 
-    for cvpserver in args.cvpserver:
+    for cvpserver in server_list:
         log.info("Connecting to %s" % cvpserver)
         try:
             clnt.connect(nodes=[cvpserver], username=args.username, password=args.password)
