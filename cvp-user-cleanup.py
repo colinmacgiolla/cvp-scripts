@@ -150,7 +150,7 @@ def main():
                     log.debug('Not deleting user %s' % user['userId'])
                     log.debug(user)
 
-    log.info("Deleted %d users from %d CVP Servers" % (cvp_count,user_count) )
+    log.info("Deleted %d users from %d CVP Servers" % (user_count,cvp_count) )
 
     sys.exit(0)
 
