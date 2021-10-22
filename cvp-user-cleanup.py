@@ -139,7 +139,7 @@ def main():
                 # get all non-local users
                 if user['userType'] != 'Local' and user['userStatus'] == 'Enabled' and user['currentStatus'] == 'Online':
                     # Get the current EPOCH time
-                    epoch_time = int(time.time())
+                    epoch_time = int(time.time()) * 1000
                     log.debug("User %s has has last been seen online %d seconds ago" % (user['userId'],user['lastAccessed']) )
                     if epoch_time - user['lastAccessed'] > age_timer:
                         if not args.dryrun:
