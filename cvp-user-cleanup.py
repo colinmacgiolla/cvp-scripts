@@ -143,11 +143,15 @@ def main():
                     log.debug("User %s has has last been seen online %d seconds ago" % (user['userId'],user['lastAccessed']) )
                     if epoch_time - user['lastAccessed'] > age_timer:
                         if not args.dryrun:
-                           clnt.api.delete_user(user['userId'])
+                            try:
+                                clnt.api.delete_user(user['userId'])
+                            except:
+                                # Handle being on an older cvprac release
+                                clnt.post('/user/deleteUsers.do',[user['userId']])
                         log.info("Kicking user: %s" % user['userId'])
                         user_count += 1
                 else:
-                    log.debug('Not deleting user %s' % user['userId'])
+                    log.debug('Not kicking user %s' % user['userId'])
                     log.debug(user)
 
     log.info("Deleted %d users from %d CVP Servers" % (user_count,cvp_count) )
