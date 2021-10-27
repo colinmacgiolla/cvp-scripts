@@ -9,7 +9,7 @@ When using non-Local accounts e.g. TACACS or Radius, there is an issue where the
 
 This becomes an issue if they update their password on TACACS/RADIUS server, but CVP continues to use the cached credentials as they haven't logged out. Potentially this can snowball if they try to touch a large number of devices, and hit failed auth limits on the AAA server.
 
-This script (by default) boots any non-Local users that are;
+This script (by default) boots any users that are;
 1. Online
 2. Not Local users
 3. Haven't been seen in the last 24 hours (configurable)
