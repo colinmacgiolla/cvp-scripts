@@ -54,9 +54,9 @@ def main():
     # This sets the logging level of the root logger - even in other logging instances, nothing below INFO will be logged
     # so this is set to DEBUG, then the logger for each switch will be INFO to the screen and DEBUG in file
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    log = logging.getLogger('CVP Lazy Configlet Generator')
+    log = logging.getLogger('CVP Legacy Device Onboarder')
     # We append to the log if it already exists, if not create the file
-    fh = logging.FileHandler('CVP_Lazy_Configelts'+timestamp+'.log', mode='a+')
+    fh = logging.FileHandler('CVP_Legacy_Device_Onboarder'+timestamp+'.log', mode='a+')
     # Set the log level going to the file
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(logging.Formatter(fmt='%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
@@ -159,6 +159,8 @@ def main():
             log.error("Target container: %s does not exist" % args.container)
             exit(1)
         
+        # We have to assign the configlets after the "move" - note that all this just creates
+        # a task to do the action - nothing is executed until you push the button
         log.info("Assigning configlet to device")
         config = [{"name": name, "key": key}]
         _ = clnt.api.apply_configlets_to_device("Legacy device onboarder", device, config)
