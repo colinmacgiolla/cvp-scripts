@@ -41,7 +41,7 @@ If you have a number of device that are streaming to CVP but still haven't been 
 
 #### Usage
 CLI arguments are as follows;
-* -u / --username - your CVP username (assumes your account has permissions to manipulate users)
+* -u / --username - your CVP username (optional if using token to authenticate)
 * -c / --cvpserver - (required) the cvp server hostname or IP
 * --continer - (required) the name of the container you want to move the devices to
 * --filter - a string/substring to match on the hostname, if you want to match a subset of devices
