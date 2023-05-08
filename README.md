@@ -45,6 +45,7 @@ CLI arguments are as follows;
 * -c / --cvpserver - (required) the cvp server hostname or IP
 * --continer - (required) the name of the container you want to move the devices to
 * --filter - a string/substring to match on the hostname, if you want to match a subset of devices
+
 Authentication is mutually exclusive between;
 * -p / --password - your CVP password. The password will be requested if not provided in the arguments
 * --token - your CVP service token
