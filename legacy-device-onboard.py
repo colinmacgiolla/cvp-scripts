@@ -151,23 +151,20 @@ def main():
             key = clnt.api.add_configlet(name, device["running_config"])
             log.info("%s configlet created with id: %s" % (name,key))
 
-        if args.container:
-            log.info("Preparing to move %s to container: %s" % (device["hostname"], args.container))
-            target_container = clnt.api.get_container_by_name(args.container)
-            if target_container is not None:
-                _ = clnt.api.move_device_to_container("Legacy device onborder", device, target_container)
-            else:
-                log.error("Target container: %s does not exist" % args.container)
-                exit(1)
+        log.info("Preparing to move %s to container: %s" % (device["hostname"], args.container))
+        target_container = clnt.api.get_container_by_name(args.container)
+        if target_container is not None:
+            _ = clnt.api.move_device_to_container("Legacy device onborder", device, target_container)
+        else:
+            log.error("Target container: %s does not exist" % args.container)
+            exit(1)
         
         log.info("Assigning configlet to device")
         config = [{"name": name, "key": key}]
         _ = clnt.api.apply_configlets_to_device("Legacy device onboarder", device, config)
 
-    
-        
 
-    print("End of Line")
+    log.info("Script run completed")
 
     
 
