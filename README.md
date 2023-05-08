@@ -30,3 +30,28 @@ CLI arguments are as follows;
 #### Tested Python Versions
 * 2.7
 * 3.7
+
+### [legacy-device-onboard](http://github.com/colinmacgiolla/cvp-scripts/blob/main/legacy-device-onboard.py)
+
+#### Problem Statement
+If you have a number of device that are streaming to CVP but still haven't been onboarded to the provisioning workflow, this script does some of the heavy lifting by;
+* Assuming the running-config is the desired config, with the schema `auto_<hostname>`
+* Creating a configlet with the running-config
+* Creating a Task that will move the device to the target container, and assign the configlet with the entire running-config to the device
+
+#### Usage
+CLI arguments are as follows;
+* -u / --username - your CVP username (optional if using token to authenticate)
+* -c / --cvpserver - (required) the cvp server hostname or IP
+* --continer - (required) the name of the container you want to move the devices to
+* --filter - a string/substring to match on the hostname, if you want to match a subset of devices
+
+Authentication is mutually exclusive between;
+* -p / --password - your CVP password. The password will be requested if not provided in the arguments
+* --token - your CVP service token
+
+#### Requires
+
+
+#### Tested Python Versions
+* 3.10
