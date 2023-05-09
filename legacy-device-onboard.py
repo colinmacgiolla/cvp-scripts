@@ -126,6 +126,10 @@ def main():
         else:
             log.debug("Skipping: %s" % device["hostname"])
 
+    if len(onboard_list) == 0:
+        log.info("No devices found that are streaming, but not onboarded.")
+        return(0)
+    
     print("The following devices are in scope:")
     for device in onboard_list:
         print("* %s" % device["hostname"])
